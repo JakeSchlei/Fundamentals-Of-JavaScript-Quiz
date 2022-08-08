@@ -60,3 +60,5 @@ const questions = [
         ]
     },
 ];
+
+const startBtn = document.querySelector(".start-btn");
