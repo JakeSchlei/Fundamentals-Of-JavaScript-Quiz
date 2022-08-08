@@ -1,6 +1,15 @@
+const startPage = document.querySelector(".start-page");
+const startBtn = document.querySelector(".start-btn");
+const questionBox = document.querySelector(".question-box");
+const timer = document.querySelector(".timer");
+
+
+
+
+
+
 const questions = [
     {
-        numb: 1,
         question: "Inside which HTML element do we put the JavaScript?",
         answer: "<script>",
         options: [
@@ -13,7 +22,6 @@ const questions = [
     },
 
     {
-        numb: 2,
         question: "How to write an IF statement in JavaScript?",
         answer: "if(i==5)",
         options: [
@@ -25,7 +33,6 @@ const questions = [
     },
 
     {
-        numb: 3,
         question: "Arrays in JavaScript can be used to store what?",
         answer: "All the Above",
         options: [
@@ -37,7 +44,6 @@ const questions = [
     },
 
     {
-        numb: 4,
         question: "How do you call a function named myFunction?",
         answer: "myFunction()",
         options: [
@@ -49,7 +55,6 @@ const questions = [
     },
 
     {
-        numb: 5,
         question: "How does a FOR loop start?",
         answer: "for (i=0; i <= 5; i++)",
         options: [
@@ -61,4 +66,13 @@ const questions = [
     },
 ];
 
-const startBtn = document.querySelector(".start-btn");
+
+
+// When start button is clicked, the quiz begins 
+
+startBtn.addEventListener(onclick, () => {
+    timer.textContent = time;
+    startPage.style.display = 'none'
+    
+    
+})
