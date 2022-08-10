@@ -1,7 +1,13 @@
-const startPage = document.querySelector(".start-page");
-const startBtn = document.querySelector(".start-btn");
+const startPage = document.querySelector("#start");
+const rulePage = document.querySelector("#rules");
+const exit = document.querySelector("#exit");
+const continueBtn = document.querySelector("#continue");
 const questionBox = document.querySelector(".question-box");
-const timer = document.querySelector(".timer");
+const timer = document.querySelector("#timer");
+
+let timeInterval;
+let globalIndex = 0;
+let time = 60;
 
 
 
@@ -68,11 +74,28 @@ const questions = [
 
 
 
-// When start button is clicked, the quiz begins 
+// When start button is clicked, the rules show 
+startPage.addEventListener("click", () => {
+    startPage.style.display = "none";
+    rulePage.style.display = "block";
 
-startBtn.addEventListener(onclick, () => {
-    timer.textContent = time;
-    startPage.style.display = 'none'
-    
-    
-})
+});
+
+// If the Exit button is clicked 
+exit.addEventListener("click", () => {
+    startPage.style.display = "block";
+    rulePage.style.display = "none";
+});
+
+// When the continue button is clicked
+continueBtn.addEventListener("click", () => {
+    questionBox.style.display = "block";
+    rulePage.style.display = "none";
+    timeInterval = setInterval(function () {
+        timer.innerHTML = time;
+        if (time === 0) {
+            clearInterval(timeInterval);
+        }
+        time--;
+    }, 1000);
+});

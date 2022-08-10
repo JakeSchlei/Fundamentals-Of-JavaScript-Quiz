@@ -31,7 +31,6 @@ body {
     border-radius: 5px;
     margin: auto;
     cursor: pointer;
-    display: none;
 }
 
 #start:hover { 
@@ -82,9 +81,7 @@ body {
     color: white;
 }
 
-#rules {
-    display: none;
-}
+
 
 /* Question Page */
 .question-box {
