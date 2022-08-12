@@ -5,13 +5,20 @@ const continueBtn = document.querySelector("#continue");
 const questionBox = document.querySelector(".question-box");
 const timer = document.querySelector("#timer");
 const questionText = document.querySelector(".question");
-const optionList = document.querySelector(".options")
+const optionList = document.querySelector(".options");
+const resultsEl = document.querySelector("#results");
+const questionContainer = document.querySelector("#question-container");
+const scoreDisplay = document.querySelector("#score-display");
+const submitForm = document.querySelector("#score-submit");
 
-let currentQuestion = 0
+let currentQuestion = 0;
+let score = 0;
+
 
 let timeInterval;
-let time = 100;
+let time = 10;
 
+// Algorithm
 // create a variable that stores which question someone is on 
 // click handler on every option, and on that handler we are going to check if the selected option is = the option that is correct
 // check answer 
@@ -105,24 +112,55 @@ continueBtn.addEventListener("click", () => {
         }
         time--;
     }, 1000);
+    
+    // multiplying by 100 because it has to pass milliseconds
+    setTimeout(handleQuizFinish, time * 1000);
     displayQuiz();
 });
 
-function handleOptionClick() {
+function handleOptionClick(event) {
+   if (event.target.innerText === questions[currentQuestion].answer) {
+    score += 1;
+   }else {
+    time -= 5;
+   }
+   console.log(score);
     currentQuestion += 1;
-    optionList.innerHTML = ""
+    
     displayQuiz();
 };
 
 
+
+function handleFormSubmit(event) {
+    // prevent form from submitting handle client side 
+    event.preventDefault();
+    // grab data from form element 
+    // pulled from https://www.codegrepper.com/code-examples/javascript/get+form+data+on+submit+javascript
+    const formData = new FormData(event.target);
+    const formProps = Object.fromEntries(formData);
+    console.log(formProps);
+    
+}
+
+function handleQuizFinish() {
+    questionContainer.style.display = "none";
+    resultsEl.style.display = "block";
+    scoreDisplay.innerText = "You got " + score + " correct out of " + questions.length + "!";
+    // create event listener once high score button is on the page
+    submitForm.addEventListener("submit", handleFormSubmit)
+
+};
 // function to display questions
 function displayQuiz() {
     if (currentQuestion >= questions.length) {
         // display final score
-        console.log("Quiz Finished")
+        handleQuizFinish();
+       
 
         return
     }
+    optionList.innerHTML = "";
     // set the question to the current question
     questionText.innerHTML = questions[currentQuestion].question;
     // for each option for the current question
@@ -139,3 +177,4 @@ function displayQuiz() {
 
     };
 }
+
