@@ -81,6 +81,10 @@ body {
     color: white;
 }
 
+#rules {
+    display: none;
+}
+
 
 
 /* Question Page */
@@ -94,6 +98,7 @@ body {
     margin: 200px;
     display: block;
     position: relative;
+    display: none;
 
 }
 
@@ -137,4 +142,12 @@ body {
 #time {
     height: 45px;
     width: 50px;
+}
+
+.options {
+    margin-top: 100px;
+}
+
+button {
+    margin: 50px;
 }

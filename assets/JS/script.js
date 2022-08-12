@@ -4,13 +4,20 @@ const exit = document.querySelector("#exit");
 const continueBtn = document.querySelector("#continue");
 const questionBox = document.querySelector(".question-box");
 const timer = document.querySelector("#timer");
+const questionText = document.querySelector(".question");
+const optionList = document.querySelector(".options")
+
+let currentQuestion = 0
 
 let timeInterval;
-let globalIndex = 0;
-let time = 60;
+let time = 100;
 
-
-
+// create a variable that stores which question someone is on 
+// click handler on every option, and on that handler we are going to check if the selected option is = the option that is correct
+// check answer 
+// success increments the question variable 
+// failure decrements time and still increments 
+// update the DOM to have next question display 
 
 
 
@@ -98,4 +105,37 @@ continueBtn.addEventListener("click", () => {
         }
         time--;
     }, 1000);
+    displayQuiz();
 });
+
+function handleOptionClick() {
+    currentQuestion += 1;
+    optionList.innerHTML = ""
+    displayQuiz();
+};
+
+
+// function to display questions
+function displayQuiz() {
+    if (currentQuestion >= questions.length) {
+        // display final score
+        console.log("Quiz Finished")
+
+        return
+    }
+    // set the question to the current question
+    questionText.innerHTML = questions[currentQuestion].question;
+    // for each option for the current question
+    for (let i = 0; i <= questions[currentQuestion].options.length; i++) {
+        // create a button for the option 
+        var optionButtonEl = document.createElement("button");
+        // set the button text to be the options
+        optionButtonEl.textContent = questions[currentQuestion].options[i];
+        // attach click event listener
+        optionButtonEl.addEventListener("click", handleOptionClick);
+        // add option button to option container 
+        optionList.appendChild(optionButtonEl);
+        
+
+    };
+}
