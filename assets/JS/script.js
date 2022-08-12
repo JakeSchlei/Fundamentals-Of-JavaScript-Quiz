@@ -86,25 +86,31 @@ const questions = [
     },
 ];
 
+function showElement(elem) {
+    elem.style.display = "block";
+  };
+
+  function hideElement(elem) {
+    elem.style.display = "none";
+  };
 
 
 // When start button is clicked, the rules show 
 startPage.addEventListener("click", () => {
-    startPage.style.display = "none";
-    rulePage.style.display = "block";
-
+    hideElement(startPage);
+    showElement(rulePage);
 });
 
 // If the Exit button is clicked 
 exit.addEventListener("click", () => {
-    startPage.style.display = "block";
-    rulePage.style.display = "none";
+    showElement(startPage);
+    hideElement(rulePage);
 });
 
 // When the continue button is clicked
 continueBtn.addEventListener("click", () => {
-    questionBox.style.display = "block";
-    rulePage.style.display = "none";
+    showElement(questionBox);
+    hideElement(rulePage);
     timeInterval = setInterval(function () {
         timer.innerHTML = time;
         if (time === 0) {
@@ -113,10 +119,11 @@ continueBtn.addEventListener("click", () => {
         time--;
     }, 1000);
     
-    // multiplying by 100 because it has to pass milliseconds
+    // multiplying by 1000 because it has to pass milliseconds
     setTimeout(handleQuizFinish, time * 1000);
     displayQuiz();
 });
+
 
 function handleOptionClick(event) {
    if (event.target.innerText === questions[currentQuestion].answer) {
@@ -124,9 +131,7 @@ function handleOptionClick(event) {
    }else {
     time -= 5;
    }
-   console.log(score);
     currentQuestion += 1;
-    
     displayQuiz();
 };
 
@@ -141,11 +146,12 @@ function handleFormSubmit(event) {
     const formProps = Object.fromEntries(formData);
     console.log(formProps);
     
-}
+};
 
 function handleQuizFinish() {
-    questionContainer.style.display = "none";
-    resultsEl.style.display = "block";
+    hideElement(timer);
+    hideElement(questionContainer);
+    showElement(resultsEl);
     scoreDisplay.innerText = "You got " + score + " correct out of " + questions.length + "!";
     // create event listener once high score button is on the page
     submitForm.addEventListener("submit", handleFormSubmit)
@@ -153,11 +159,9 @@ function handleQuizFinish() {
 };
 // function to display questions
 function displayQuiz() {
-    if (currentQuestion >= questions.length) {
+    if (currentQuestion >= questions.length || time <= 0) {
         // display final score
         handleQuizFinish();
-       
-
         return
     }
     optionList.innerHTML = "";
@@ -173,8 +177,6 @@ function displayQuiz() {
         optionButtonEl.addEventListener("click", handleOptionClick);
         // add option button to option container 
         optionList.appendChild(optionButtonEl);
-        
-
     };
-}
+};
 
