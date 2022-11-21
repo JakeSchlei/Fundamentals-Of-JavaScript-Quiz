@@ -18,7 +18,7 @@ let currentQuestion = 0;
 let score = 0;
 
 let timeInterval;
-let time = 10;
+let time = 200;
 
 // Algorithm
 // create a variable that stores which question someone is on
